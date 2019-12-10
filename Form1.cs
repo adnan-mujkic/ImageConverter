@@ -154,9 +154,13 @@ namespace ImageConverterGUI
          using(var image = Pfim.Pfim.FromFile(path)) {
             PixelFormat format;
             // Convert from Pfim's backend agnostic image format into GDI+'s image format
+            
             switch(image.Format) {
                case Pfim.ImageFormat.Rgba32:
                   format = PixelFormat.Format32bppArgb;
+                  break;
+               case Pfim.ImageFormat.R5g5b5:
+                  format = PixelFormat.Format16bppRgb555;
                   break;
                default:
                   // see the sample for more details
@@ -170,19 +174,19 @@ namespace ImageConverterGUI
             try {
                var data = Marshal.UnsafeAddrOfPinnedArrayElement(image.Data, 0);
                var bitmap = new Bitmap(image.Width, image.Height, image.Stride, format, data);
-               await AllocateMemoryAndSave(path, bitmap, jpg, Replace);
-
+               string oldPath = path;
                //Rename Unity meta
                if(UnityMeta) {
-                  if(File.Exists(path + ".meta")) {
-                     string oldPath = path + ".meta";
+                  if(File.Exists(oldPath + ".meta")) {
                      string newPath = "";
                      if(jpg)
-                        newPath = Path.ChangeExtension(path, ".jpg");
+                        newPath = Path.ChangeExtension(oldPath, ".jpg");
                      else
-                        newPath = Path.ChangeExtension(path, ".png");
-                     if(Replace)
-                        System.IO.File.Copy(oldPath, newPath + ".meta");
+                        newPath = Path.ChangeExtension(oldPath, ".png");
+                     if(Replace) {
+                        File.Copy(oldPath, newPath + ".meta");
+                        File.Delete(oldPath + ".meta");
+                     }
                      else {
                         try {
                            System.IO.File.Move(oldPath, newPath + ".meta");
@@ -192,6 +196,8 @@ namespace ImageConverterGUI
                      }
                   }
                }
+
+               await AllocateMemoryAndSave(path, bitmap, jpg, Replace); 
             } finally {
                handle.Free();
             }
@@ -204,23 +210,21 @@ namespace ImageConverterGUI
             outputFileName = Path.ChangeExtension(path, ".png");
          else
             outputFileName = Path.ChangeExtension(path, ".jpg");
-         using(MemoryStream memory = new MemoryStream()) {
-            using(FileStream fs = new FileStream(outputFileName, FileMode.Create, FileAccess.ReadWrite)) {
-               if(!jpg) {
-                  bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Png);
-               }
-               else {
-                  ImageCodecInfo codec = ImageCodecInfo.GetImageEncoders().First(c=> c.FormatID == System.Drawing.Imaging.ImageFormat.Jpeg.Guid);
-                  var encParams = new EncoderParameters(){
-                     Param = new[]{
+         if(!jpg) {
+            try {
+               bitmap.Save(outputFileName, System.Drawing.Imaging.ImageFormat.Png);
+
+            } catch(Exception ex) {
+               MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+         } else {
+            ImageCodecInfo codec = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == System.Drawing.Imaging.ImageFormat.Jpeg.Guid);
+            var encParams = new EncoderParameters() {
+               Param = new[]{
                         new EncoderParameter(Encoder.Quality, jpgQuality)
                      }
-                  };
-                  bitmap.Save(memory, codec, encParams);
-               }
-               byte[] bytes = memory.ToArray();
-               await SaveToFile(fs, bytes);
-            }
+            };
+            bitmap.Save(outputFileName, codec, encParams);
          }
          if(replace) {
             try {
