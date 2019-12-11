@@ -46,15 +46,17 @@
          // 
          // ConvertButton
          // 
+         this.ConvertButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.ConvertButton.BackColor = System.Drawing.Color.Transparent;
          this.ConvertButton.Cursor = System.Windows.Forms.Cursors.Hand;
          this.ConvertButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
          this.ConvertButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
          this.ConvertButton.Font = new System.Drawing.Font("Roboto Light", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.ConvertButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
-         this.ConvertButton.Location = new System.Drawing.Point(100, 477);
+         this.ConvertButton.Location = new System.Drawing.Point(99, 497);
          this.ConvertButton.Name = "ConvertButton";
-         this.ConvertButton.Size = new System.Drawing.Size(200, 50);
+         this.ConvertButton.Size = new System.Drawing.Size(209, 50);
          this.ConvertButton.TabIndex = 1;
          this.ConvertButton.Text = "Convert";
          this.ConvertButton.UseVisualStyleBackColor = false;
@@ -62,12 +64,13 @@
          // 
          // checkUnityMetaFilesRename
          // 
+         this.checkUnityMetaFilesRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
          this.checkUnityMetaFilesRename.Cursor = System.Windows.Forms.Cursors.Hand;
          this.checkUnityMetaFilesRename.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(244)))), ((int)(((byte)(153)))));
          this.checkUnityMetaFilesRename.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
          this.checkUnityMetaFilesRename.Font = new System.Drawing.Font("Roboto Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.checkUnityMetaFilesRename.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
-         this.checkUnityMetaFilesRename.Location = new System.Drawing.Point(15, 396);
+         this.checkUnityMetaFilesRename.Location = new System.Drawing.Point(15, 397);
          this.checkUnityMetaFilesRename.Name = "checkUnityMetaFilesRename";
          this.checkUnityMetaFilesRename.Size = new System.Drawing.Size(200, 31);
          this.checkUnityMetaFilesRename.TabIndex = 2;
@@ -76,12 +79,13 @@
          // 
          // checkBoxReplaceFiles
          // 
+         this.checkBoxReplaceFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
          this.checkBoxReplaceFiles.Cursor = System.Windows.Forms.Cursors.Hand;
          this.checkBoxReplaceFiles.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(244)))), ((int)(((byte)(153)))));
          this.checkBoxReplaceFiles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
          this.checkBoxReplaceFiles.Font = new System.Drawing.Font("Roboto Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.checkBoxReplaceFiles.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
-         this.checkBoxReplaceFiles.Location = new System.Drawing.Point(15, 433);
+         this.checkBoxReplaceFiles.Location = new System.Drawing.Point(15, 434);
          this.checkBoxReplaceFiles.Name = "checkBoxReplaceFiles";
          this.checkBoxReplaceFiles.Size = new System.Drawing.Size(200, 31);
          this.checkBoxReplaceFiles.TabIndex = 3;
@@ -90,6 +94,8 @@
          // 
          // label4
          // 
+         this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.label4.Font = new System.Drawing.Font("Roboto Thin", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
          this.label4.Location = new System.Drawing.Point(10, 5);
@@ -101,6 +107,7 @@
          // 
          // label5
          // 
+         this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
          this.label5.Font = new System.Drawing.Font("Roboto Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
          this.label5.Location = new System.Drawing.Point(9, 329);
@@ -112,6 +119,7 @@
          // 
          // convertJpg
          // 
+         this.convertJpg.Anchor = System.Windows.Forms.AnchorStyles.Left;
          this.convertJpg.BackColor = System.Drawing.Color.Transparent;
          this.convertJpg.Cursor = System.Windows.Forms.Cursors.Hand;
          this.convertJpg.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
@@ -128,6 +136,7 @@
          // 
          // convertPng
          // 
+         this.convertPng.Anchor = System.Windows.Forms.AnchorStyles.Left;
          this.convertPng.BackColor = System.Drawing.Color.Transparent;
          this.convertPng.Cursor = System.Windows.Forms.Cursors.Hand;
          this.convertPng.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
@@ -144,23 +153,29 @@
          // 
          // progressBar1
          // 
-         this.progressBar1.Location = new System.Drawing.Point(7, 544);
+         this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.progressBar1.Location = new System.Drawing.Point(7, 553);
          this.progressBar1.Name = "progressBar1";
-         this.progressBar1.Size = new System.Drawing.Size(374, 23);
+         this.progressBar1.Size = new System.Drawing.Size(383, 23);
          this.progressBar1.TabIndex = 16;
          this.progressBar1.UseWaitCursor = true;
          // 
          // label6
          // 
-         this.label6.Location = new System.Drawing.Point(7, 570);
+         this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.label6.Location = new System.Drawing.Point(7, 579);
          this.label6.Name = "label6";
-         this.label6.Size = new System.Drawing.Size(374, 32);
+         this.label6.Size = new System.Drawing.Size(383, 32);
          this.label6.TabIndex = 17;
          this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
          // listView1
          // 
          this.listView1.Activation = System.Windows.Forms.ItemActivation.OneClick;
+         this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
          this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
@@ -242,7 +257,7 @@
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-         this.ClientSize = new System.Drawing.Size(384, 541);
+         this.ClientSize = new System.Drawing.Size(393, 620);
          this.Controls.Add(this.deleteItem);
          this.Controls.Add(this.listView1);
          this.Controls.Add(this.label6);
