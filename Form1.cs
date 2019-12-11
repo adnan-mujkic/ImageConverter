@@ -46,6 +46,24 @@ namespace ImageConverterGUI
          convertJpg.MouseLeave += OnMouseLeaveButtonJpgPng;
          convertPng.MouseEnter += OnMouseEnterButton;
          convertPng.MouseLeave += OnMouseLeaveButtonJpgPng;
+
+         listView1.AllowDrop = true;
+         listView1.DragDrop += new DragEventHandler(listView1_DragDrop);
+         listView1.DragEnter += new DragEventHandler(listView1_DragEnter);
+      }
+
+      private void listView1_DragEnter(object sender, DragEventArgs e) {
+         e.Effect = DragDropEffects.Copy;
+      }
+
+      private void listView1_DragDrop(object sender, DragEventArgs e) {
+         var dropData = e.Data.GetData("FileDrop");
+         for(int i = 0; i < ((string[])dropData).Length; i++) {
+            filesLoaded.Add(((string[])dropData)[i]);
+            ListViewItem item = new ListViewItem(filesLoaded.Count.ToString());
+            item.SubItems.Add(((string[])dropData)[i]);
+            listView1.Items.Add(item);
+         }
       }
 
       public static void OnMouseEnterButton(object sender, EventArgs e) {
@@ -234,9 +252,6 @@ namespace ImageConverterGUI
             }
          }
       }
-      private async Task SaveToFile(FileStream fs, byte[] bytes) {
-         await fs.WriteAsync(bytes, 0, bytes.Length);
-      }
       private void EnableInteractivity(Button button, bool enable) {
          button.Enabled = enable;
          if(enable)
@@ -266,7 +281,6 @@ namespace ImageConverterGUI
          ChangeJpgPngButtonColors();
       }
       public async void StartConversion() {
-         Size = new Size(400, 650);
          Stopwatch watch = new Stopwatch();
          watch.Start();
          //Disable Cursors
@@ -302,7 +316,6 @@ namespace ImageConverterGUI
          }
       }
       public async void StartConversionJpeg() {
-         Size = new Size(400, 650);
          Stopwatch watch = new Stopwatch();
          watch.Start();
          //Disable Cursors

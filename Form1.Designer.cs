@@ -174,6 +174,7 @@
          // listView1
          // 
          this.listView1.Activation = System.Windows.Forms.ItemActivation.OneClick;
+         this.listView1.AllowDrop = true;
          this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -195,7 +196,7 @@
          // columnHeader1
          // 
          this.columnHeader1.Text = "ID";
-         this.columnHeader1.Width = 30;
+         this.columnHeader1.Width = 40;
          // 
          // columnHeader2
          // 
@@ -271,7 +272,6 @@
          this.Controls.Add(this.checkBoxReplaceFiles);
          this.Controls.Add(this.checkUnityMetaFilesRename);
          this.Controls.Add(this.ConvertButton);
-         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
          this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
          this.MaximizeBox = false;
          this.Name = "Form1";
