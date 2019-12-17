@@ -29,8 +29,6 @@
          this.trackBar1 = new System.Windows.Forms.TrackBar();
          this.label1 = new System.Windows.Forms.Label();
          this.ApplyChangesButton = new System.Windows.Forms.Button();
-         this.setBgcolorButton = new System.Windows.Forms.Button();
-         this.label3 = new System.Windows.Forms.Label();
          this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
          ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -43,6 +41,7 @@
          this.trackBar1.Name = "trackBar1";
          this.trackBar1.Size = new System.Drawing.Size(263, 45);
          this.trackBar1.TabIndex = 0;
+         this.trackBar1.TickFrequency = 10;
          this.trackBar1.Value = 100;
          this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
          // 
@@ -64,39 +63,15 @@
          this.ApplyChangesButton.Cursor = System.Windows.Forms.Cursors.Hand;
          this.ApplyChangesButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
          this.ApplyChangesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-         this.ApplyChangesButton.Font = new System.Drawing.Font("Roboto Light", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.ApplyChangesButton.Font = new System.Drawing.Font("Roboto Light", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
          this.ApplyChangesButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
-         this.ApplyChangesButton.Location = new System.Drawing.Point(75, 158);
+         this.ApplyChangesButton.Location = new System.Drawing.Point(107, 89);
          this.ApplyChangesButton.Name = "ApplyChangesButton";
-         this.ApplyChangesButton.Size = new System.Drawing.Size(200, 50);
+         this.ApplyChangesButton.Size = new System.Drawing.Size(113, 38);
          this.ApplyChangesButton.TabIndex = 3;
          this.ApplyChangesButton.Text = "Ok";
          this.ApplyChangesButton.UseVisualStyleBackColor = false;
          this.ApplyChangesButton.Click += new System.EventHandler(this.ApplyChangesButton_Click);
-         // 
-         // setBgcolorButton
-         // 
-         this.setBgcolorButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-         this.setBgcolorButton.Cursor = System.Windows.Forms.Cursors.Hand;
-         this.setBgcolorButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
-         this.setBgcolorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-         this.setBgcolorButton.Font = new System.Drawing.Font("Roboto Light", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.setBgcolorButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
-         this.setBgcolorButton.Location = new System.Drawing.Point(25, 95);
-         this.setBgcolorButton.Name = "setBgcolorButton";
-         this.setBgcolorButton.Size = new System.Drawing.Size(250, 40);
-         this.setBgcolorButton.TabIndex = 4;
-         this.setBgcolorButton.Text = "Select background color";
-         this.setBgcolorButton.UseVisualStyleBackColor = false;
-         this.setBgcolorButton.Click += new System.EventHandler(this.setBgcolorButton_Click);
-         // 
-         // label3
-         // 
-         this.label3.BackColor = System.Drawing.Color.White;
-         this.label3.Location = new System.Drawing.Point(282, 95);
-         this.label3.Name = "label3";
-         this.label3.Size = new System.Drawing.Size(48, 40);
-         this.label3.TabIndex = 5;
          // 
          // numericUpDown1
          // 
@@ -117,10 +92,8 @@
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-         this.ClientSize = new System.Drawing.Size(342, 220);
+         this.ClientSize = new System.Drawing.Size(342, 139);
          this.Controls.Add(this.numericUpDown1);
-         this.Controls.Add(this.label3);
-         this.Controls.Add(this.setBgcolorButton);
          this.Controls.Add(this.ApplyChangesButton);
          this.Controls.Add(this.label1);
          this.Controls.Add(this.trackBar1);
@@ -141,8 +114,6 @@
       private System.Windows.Forms.TrackBar trackBar1;
       private System.Windows.Forms.Label label1;
       private System.Windows.Forms.Button ApplyChangesButton;
-      private System.Windows.Forms.Button setBgcolorButton;
-      private System.Windows.Forms.Label label3;
       private System.Windows.Forms.NumericUpDown numericUpDown1;
    }
 }

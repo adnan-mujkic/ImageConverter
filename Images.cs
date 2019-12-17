@@ -23,8 +23,6 @@ namespace ImageConverterGUI
          trackBar1.Value = jpgQuality;
          numericUpDown1.Value = jpgQuality;
          bgColor = Color.FromArgb(255, 255, 255);
-         setBgcolorButton.MouseEnter += Form1.OnMouseEnterButton;
-         setBgcolorButton.MouseLeave += Form1.OnMouseLeaveButton1;
          ApplyChangesButton.MouseEnter += Form1.OnMouseEnterButton;
          ApplyChangesButton.MouseLeave += Form1.OnMouseLeaveButton1;
       }
@@ -43,7 +41,6 @@ namespace ImageConverterGUI
          ColorDialog CD = new ColorDialog();
          if(CD.ShowDialog() == DialogResult.OK) {
             bgColor = CD.Color;
-            label3.BackColor = bgColor;
          }
 
       }
@@ -51,7 +48,6 @@ namespace ImageConverterGUI
       private void ApplyChangesButton_Click(object sender, EventArgs e) {
          Form1.jpgQuality = jpgQuality;
          Form1.jpgBgColor = bgColor;
-         form1.StartConversionJpeg();
          Close();
       }
    }

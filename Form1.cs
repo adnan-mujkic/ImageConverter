@@ -22,6 +22,7 @@ namespace ImageConverterGUI
       public static int jpgQuality;
       public static Color jpgBgColor;
       public List<string> filesLoaded;
+      public Stopwatch conversionTimer;
       public Form1() {
          InitializeComponent();
          backgroundWorker1.WorkerReportsProgress = true;
@@ -31,7 +32,9 @@ namespace ImageConverterGUI
          filesLoaded = new List<string>();
          ConvertButton.MouseEnter += OnMouseEnterButton;
          ConvertButton.MouseLeave += OnMouseLeaveButton1;
+         conversionTimer = new Stopwatch();
 
+         radioButton1.Select();
          selectFolder.Image = Properties.Resources.AddFolderNormal;
          selectFolder.MouseEnter += OnMouseEnterButtonImage;
          selectFolder.MouseLeave += OnMouseLeaveButtonImage;
@@ -41,65 +44,19 @@ namespace ImageConverterGUI
          deleteItem.Image = Properties.Resources.DeleteImageNormal;
          deleteItem.MouseEnter += OnMouseEnterButtonImage;
          deleteItem.MouseLeave += OnMouseLeaveButtonImage;
+         convertSettingsButton.MouseEnter += OnMouseEnterButtonImage;
+         convertSettingsButton.MouseLeave += OnMouseLeaveButtonImage;
+         selectFolderToSave.MouseEnter += OnMouseEnterButton;
+         selectFolderToSave.MouseLeave += OnMouseLeaveButton1;
 
-         convertJpg.MouseEnter += OnMouseEnterButton;
+         convertJpg.MouseEnter += OnMouseEnterButtonImage;
          convertJpg.MouseLeave += OnMouseLeaveButtonJpgPng;
-         convertPng.MouseEnter += OnMouseEnterButton;
+         convertPng.MouseEnter += OnMouseEnterButtonImage;
          convertPng.MouseLeave += OnMouseLeaveButtonJpgPng;
 
          listView1.AllowDrop = true;
          listView1.DragDrop += new DragEventHandler(listView1_DragDrop);
          listView1.DragEnter += new DragEventHandler(listView1_DragEnter);
-      }
-
-      private void listView1_DragEnter(object sender, DragEventArgs e) {
-         e.Effect = DragDropEffects.Copy;
-      }
-
-      private void listView1_DragDrop(object sender, DragEventArgs e) {
-         var dropData = e.Data.GetData("FileDrop");
-         for(int i = 0; i < ((string[])dropData).Length; i++) {
-            filesLoaded.Add(((string[])dropData)[i]);
-            ListViewItem item = new ListViewItem(filesLoaded.Count.ToString());
-            item.SubItems.Add(((string[])dropData)[i]);
-            listView1.Items.Add(item);
-         }
-      }
-
-      public static void OnMouseEnterButton(object sender, EventArgs e) {
-         Button btn = sender as Button;
-         btn.BackColor = Color.FromArgb(255, 255, 115, 21);
-         btn.ForeColor = Color.FromArgb(255, 244, 244, 244);
-      }
-      public static void OnMouseEnterButtonImage(object sender, EventArgs e) {
-         Button btn = sender as Button;
-         btn.BackColor = Color.FromArgb(255, 255, 115, 21);
-         btn.ForeColor = Color.FromArgb(255, 244, 244, 244);
-         if(btn.Name == "selectFile")
-            btn.Image = Properties.Resources.AddImageSelected;
-         else if(btn.Name == "selectFolder")
-            btn.Image = Properties.Resources.AddFolderSelected;
-         else if(btn.Name == "deleteItem")
-            btn.Image = Properties.Resources.DeleteImageSelected;
-      }
-      public static void OnMouseLeaveButtonImage(object sender, EventArgs e) {
-         Button btn = sender as Button;
-         btn.BackColor = Color.Transparent;
-         btn.ForeColor = Color.FromArgb(255, 255, 115, 21);
-         if(btn.Name == "selectFile")
-            btn.Image = Properties.Resources.AddImageNormal;
-         else if(btn.Name == "selectFolder")
-            btn.Image = Properties.Resources.AddFolderNormal;
-         else if(btn.Name == "deleteItem")
-            btn.Image = Properties.Resources.DeleteImageNormal;
-      }
-      public static void OnMouseLeaveButton1(object sender, EventArgs e) {
-         Button btn = sender as Button;
-         btn.BackColor = Color.Transparent;
-         btn.ForeColor = Color.FromArgb(255, 255, 115, 21);
-      }
-      private void OnMouseLeaveButtonJpgPng(object sender, EventArgs e) {
-         ChangeJpgPngButtonColors();
       }
 
       private void Form1_Load(object sender, EventArgs e) {
@@ -109,23 +66,19 @@ namespace ImageConverterGUI
          timer.Start();
       }
       private void UpdateUIelemnts(object sender, EventArgs e) {
-         if(progressBarValue <= 100 && this.progressBar1.Value != progressBarValue)
+         if(progressBarValue <= 100 && this.progressBar1.Value != progressBarValue) {
             this.progressBar1.Value = progressBarValue;
-      }
-
-      private async void selectFolder_Click(object sender, EventArgs e) {
-         FolderBrowserDialog fbd = new FolderBrowserDialog();
-         fbd.RootFolder = Environment.SpecialFolder.Desktop;
-         fbd.Description = "Select folder with textures";
-         fbd.ShowNewFolderButton = false;
-         if(fbd.ShowDialog() == DialogResult.OK) {
-            folderPath = fbd.SelectedPath;
-            GetTgaFilesFromFolder();
+            ConversionProgress.Text = progressBarValue + "%\nElapsed:" + (int)conversionTimer.Elapsed.TotalSeconds + " seconds";
          }
       }
       private void GetTgaFilesFromFolder() {
          GetFilesFromFolders(folderPath);
       }
+
+      /// <summary>
+      /// Gets all the files from folders and subfolders and puts them into filesLoaded array 
+      /// </summary>
+      /// <param name="_filePath"></param>
       private void GetFilesFromFolders(string _filePath) {
          var allFiles = Directory.GetFiles(_filePath);
          for(int i = 0; i < allFiles.Length; i++) {
@@ -143,28 +96,28 @@ namespace ImageConverterGUI
             }
          }
       }
-      private void button1_Click(object sender, EventArgs e) {
-         OpenFileDialog fd = new OpenFileDialog();
-         if(fd.ShowDialog() == DialogResult.OK) {
-            filepath = fd.FileName;
-            filesLoaded.Add(filepath);
-            ListViewItem item = new ListViewItem(filesLoaded.Count.ToString());
-            item.SubItems.Add(filepath);
-            listView1.Items.Add(item);
-         }
+      private void EnableInteractivity(Button button, bool enable) {
+         button.Enabled = enable;
+         if(enable)
+            button.Cursor = Cursors.Hand;
+         else
+            button.Cursor = Cursors.WaitCursor;
       }
-      private void ConvertButton_Click(object sender, EventArgs e) {
-
-         if(listView1.Items.Count == 0) {
-            DialogResult message = MessageBox.Show("Please select file!","Motherfucker");
-            return;
-         }
-         else if(jpgOrPng) {
-            Form jpegOptions = new Images(this);
-            jpegOptions.Show();
-         }
-         else if(!jpgOrPng){
-            StartConversion();
+      private void ChangeJpgPngButtonColors() {
+         if(jpgOrPng) {
+            convertJpg.BackColor = Color.FromArgb(255, 255, 115, 21);
+            convertJpg.ForeColor = Color.FromArgb(255, 244, 244, 244);
+            convertJpg.Image = Properties.Resources.jpgSelected;
+            convertPng.BackColor = Color.Transparent;
+            convertPng.ForeColor = Color.FromArgb(255, 255, 115, 21);
+            convertPng.Image = Properties.Resources.png;
+         } else {
+            convertJpg.BackColor = Color.Transparent;
+            convertJpg.ForeColor = Color.FromArgb(255, 255, 115, 21);
+            convertJpg.Image = Properties.Resources.jpg;
+            convertPng.BackColor = Color.FromArgb(255, 255, 115, 21);
+            convertPng.ForeColor = Color.FromArgb(255, 244, 244, 244);
+            convertPng.Image = Properties.Resources.pngSelected;
          }
       }
 
@@ -172,7 +125,7 @@ namespace ImageConverterGUI
          using(var image = Pfim.Pfim.FromFile(path)) {
             PixelFormat format;
             // Convert from Pfim's backend agnostic image format into GDI+'s image format
-            
+            //MessageBox.Show(image.Format.ToString());
             switch(image.Format) {
                case Pfim.ImageFormat.Rgba32:
                   format = PixelFormat.Format32bppArgb;
@@ -204,8 +157,7 @@ namespace ImageConverterGUI
                      if(Replace) {
                         File.Copy(oldPath, newPath + ".meta");
                         File.Delete(oldPath + ".meta");
-                     }
-                     else {
+                     } else {
                         try {
                            System.IO.File.Move(oldPath, newPath + ".meta");
                         } catch(Exception ex) {
@@ -215,7 +167,7 @@ namespace ImageConverterGUI
                   }
                }
 
-               await AllocateMemoryAndSave(path, bitmap, jpg, Replace); 
+               await AllocateMemoryAndSave(path, bitmap, jpg, Replace);
             } finally {
                handle.Free();
             }
@@ -252,37 +204,9 @@ namespace ImageConverterGUI
             }
          }
       }
-      private void EnableInteractivity(Button button, bool enable) {
-         button.Enabled = enable;
-         if(enable)
-            button.Cursor = Cursors.Hand;
-         else
-            button.Cursor = Cursors.WaitCursor;
-      }
-      private void ChangeJpgPngButtonColors() {
-         if(jpgOrPng) {
-            convertJpg.BackColor = Color.FromArgb(255, 255, 115, 21);
-            convertJpg.ForeColor = Color.FromArgb(255, 244, 244, 244);
-            convertPng.BackColor = Color.Transparent;
-            convertPng.ForeColor = Color.FromArgb(255, 255, 115, 21);
-         } else {
-            convertJpg.BackColor = Color.Transparent;
-            convertJpg.ForeColor = Color.FromArgb(255, 255, 115, 21);
-            convertPng.BackColor = Color.FromArgb(255, 255, 115, 21);
-            convertPng.ForeColor = Color.FromArgb(255, 244, 244, 244);
-         }
-      }
-      private void convertJpg_Click(object sender, EventArgs e) {
-         jpgOrPng = true;
-         ChangeJpgPngButtonColors();
-      }
-      private void convertPng_Click(object sender, EventArgs e) {
-         jpgOrPng = false;
-         ChangeJpgPngButtonColors();
-      }
       public async void StartConversion() {
-         Stopwatch watch = new Stopwatch();
-         watch.Start();
+         conversionTimer = new Stopwatch();
+         conversionTimer.Start();
          //Disable Cursors
          {
             this.Cursor = Cursors.WaitCursor;
@@ -299,8 +223,8 @@ namespace ImageConverterGUI
             this.progressBarValue = (int)(((float)(i / filesLoaded.Count)) * 100f);
          }
          this.progressBarValue = 100;
-         watch.Stop();
-         label6.Text = "Conversion done in " + (watch.ElapsedMilliseconds / 1000).ToString() + " seconds.";
+         conversionTimer.Stop();
+         ConversionProgress.Text = "Conversion done in " + (conversionTimer.ElapsedMilliseconds / 1000).ToString() + " seconds.";
          {
             this.Cursor = Cursors.Default;
             checkUnityMetaFilesRename.Enabled = true;
@@ -316,8 +240,8 @@ namespace ImageConverterGUI
          }
       }
       public async void StartConversionJpeg() {
-         Stopwatch watch = new Stopwatch();
-         watch.Start();
+         conversionTimer = new Stopwatch();
+         conversionTimer.Start();
          //Disable Cursors
          {
             this.Cursor = Cursors.WaitCursor;
@@ -331,11 +255,12 @@ namespace ImageConverterGUI
          }
          for(int i = 0; i < filesLoaded.Count; i++) {
             await Task.Run(() => { ConvertFile(filesLoaded[i], checkBoxReplaceFiles.Checked, checkUnityMetaFilesRename.Checked, true); });
-            this.progressBarValue = (int)(((float)(i / filesLoaded.Count)) * 100f);
+            var progression = ((float)i / (float)filesLoaded.Count) * 100f;
+            this.progressBarValue = (int)progression;
          }
          this.progressBarValue = 100;
-         watch.Stop();
-         label6.Text = "Conversion done in " + (watch.ElapsedMilliseconds / 1000).ToString() + " seconds.";
+         conversionTimer.Stop();
+         ConversionProgress.Text = "Conversion done in " + (conversionTimer.ElapsedMilliseconds / 1000).ToString() + " seconds.";
          {
             this.Cursor = Cursors.Default;
             checkUnityMetaFilesRename.Enabled = true;
@@ -349,6 +274,33 @@ namespace ImageConverterGUI
          if(MessageBox.Show("Conversion Complete") == DialogResult.OK) {
             Application.Exit();
          }
+      }
+
+
+
+      //EVENTS
+      private void listView1_DragEnter(object sender, DragEventArgs e) {
+         e.Effect = DragDropEffects.Copy;
+      }
+      private void listView1_DragDrop(object sender, DragEventArgs e) {
+         var dropData = e.Data.GetData("FileDrop");
+         for(int i = 0; i < ((string[])dropData).Length; i++) {
+            filesLoaded.Add(((string[])dropData)[i]);
+            ListViewItem item = new ListViewItem(filesLoaded.Count.ToString());
+            item.SubItems.Add(((string[])dropData)[i]);
+            listView1.Items.Add(item);
+         }
+      }
+      private void OnMouseLeaveButtonJpgPng(object sender, EventArgs e) {
+         ChangeJpgPngButtonColors();
+      }
+      private void convertJpg_Click(object sender, EventArgs e) {
+         jpgOrPng = true;
+         ChangeJpgPngButtonColors();
+      }
+      private void convertPng_Click(object sender, EventArgs e) {
+         jpgOrPng = false;
+         ChangeJpgPngButtonColors();
       }
       private void deleteItem_Click(object sender, EventArgs e) {
          if(listView1.SelectedItems.Count == 0) {
@@ -369,6 +321,89 @@ namespace ImageConverterGUI
                   listView1.Items[i].SubItems[0].Text = (i + 1).ToString();
                }
             }
+         }
+      }
+      private void button1_Click(object sender, EventArgs e) {
+         OpenFileDialog fd = new OpenFileDialog();
+         if(fd.ShowDialog() == DialogResult.OK) {
+            filepath = fd.FileName;
+            filesLoaded.Add(filepath);
+            ListViewItem item = new ListViewItem(filesLoaded.Count.ToString());
+            item.SubItems.Add(filepath);
+            listView1.Items.Add(item);
+         }
+      }
+      private void ConvertButton_Click(object sender, EventArgs e) {
+
+         if(listView1.Items.Count == 0) {
+            DialogResult message = MessageBox.Show("Please select file!", "Motherfucker");
+            return;
+         } else if(jpgOrPng) {
+            StartConversionJpeg();
+         } else if(!jpgOrPng) {
+            StartConversion();
+         }
+      }
+      private async void selectFolder_Click(object sender, EventArgs e) {
+         FolderBrowserDialog fbd = new FolderBrowserDialog();
+         fbd.RootFolder = Environment.SpecialFolder.Desktop;
+         fbd.Description = "Select folder with textures";
+         fbd.ShowNewFolderButton = false;
+         if(fbd.ShowDialog() == DialogResult.OK) {
+            folderPath = fbd.SelectedPath;
+            GetTgaFilesFromFolder();
+         }
+      }
+
+      public static void OnMouseEnterButton(object sender, EventArgs e) {
+         Button btn = sender as Button;
+         btn.BackColor = Color.FromArgb(255, 255, 115, 21);
+         btn.ForeColor = Color.FromArgb(255, 244, 244, 244);
+      }
+      public static void OnMouseEnterButtonImage(object sender, EventArgs e) {
+         Button btn = sender as Button;
+         btn.BackColor = Color.FromArgb(255, 255, 115, 21);
+         btn.ForeColor = Color.FromArgb(255, 244, 244, 244);
+         if(btn.Name == "selectFile")
+            btn.Image = Properties.Resources.AddImageSelected;
+         else if(btn.Name == "selectFolder")
+            btn.Image = Properties.Resources.AddFolderSelected;
+         else if(btn.Name == "deleteItem")
+            btn.Image = Properties.Resources.DeleteImageSelected;
+         else if(btn.Name == "convertJpg")
+            btn.Image = Properties.Resources.jpgSelected;
+         else if(btn.Name == "convertPng")
+            btn.Image = Properties.Resources.pngSelected;
+         else if(btn.Name == "convertSettingsButton")
+            btn.Image = Properties.Resources.settingsSelected;
+      }
+      public static void OnMouseLeaveButtonImage(object sender, EventArgs e) {
+         Button btn = sender as Button;
+         btn.BackColor = Color.Transparent;
+         btn.ForeColor = Color.FromArgb(255, 255, 115, 21);
+         if(btn.Name == "selectFile")
+            btn.Image = Properties.Resources.AddImageNormal;
+         else if(btn.Name == "selectFolder")
+            btn.Image = Properties.Resources.AddFolderNormal;
+         else if(btn.Name == "deleteItem")
+            btn.Image = Properties.Resources.DeleteImageNormal;
+         else if(btn.Name == "convertJpg")
+            btn.Image = Properties.Resources.jpg;
+         else if(btn.Name == "convertPng")
+            btn.Image = Properties.Resources.png;
+         else if(btn.Name == "convertSettingsButton")
+            btn.Image = Properties.Resources.settings;
+      }
+      public static void OnMouseLeaveButton1(object sender, EventArgs e) {
+         Button btn = sender as Button;
+         btn.BackColor = Color.Transparent;
+         btn.ForeColor = Color.FromArgb(255, 255, 115, 21);
+      }
+
+      private void convertSettingsButton_Click(object sender, EventArgs e) {
+         if(jpgOrPng) {
+            Form jpegOptions = new Images(this);
+            jpegOptions.Show();
          }
       }
    }
