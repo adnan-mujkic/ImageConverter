@@ -49,7 +49,7 @@
          this.tabPage2 = new System.Windows.Forms.TabPage();
          this.groupBox2 = new System.Windows.Forms.GroupBox();
          this.selectFolderToSave = new System.Windows.Forms.Button();
-         this.textBox1 = new System.Windows.Forms.TextBox();
+         this.saveFolderTextbox = new System.Windows.Forms.TextBox();
          this.radioButton2 = new System.Windows.Forms.RadioButton();
          this.radioButton1 = new System.Windows.Forms.RadioButton();
          this.ConversionProgress = new System.Windows.Forms.Label();
@@ -389,7 +389,7 @@
          this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.groupBox2.Controls.Add(this.selectFolderToSave);
-         this.groupBox2.Controls.Add(this.textBox1);
+         this.groupBox2.Controls.Add(this.saveFolderTextbox);
          this.groupBox2.Controls.Add(this.radioButton2);
          this.groupBox2.Controls.Add(this.radioButton1);
          this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
@@ -418,17 +418,19 @@
          this.selectFolderToSave.TextAlign = System.Drawing.ContentAlignment.TopCenter;
          this.selectFolderToSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
          this.selectFolderToSave.UseVisualStyleBackColor = false;
+         this.selectFolderToSave.Click += new System.EventHandler(this.selectFolderToSave_Click);
          // 
-         // textBox1
+         // saveFolderTextbox
          // 
-         this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+         this.saveFolderTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
-         this.textBox1.Location = new System.Drawing.Point(81, 62);
-         this.textBox1.Name = "textBox1";
-         this.textBox1.Size = new System.Drawing.Size(418, 24);
-         this.textBox1.TabIndex = 2;
+         this.saveFolderTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.saveFolderTextbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
+         this.saveFolderTextbox.Location = new System.Drawing.Point(81, 62);
+         this.saveFolderTextbox.Name = "saveFolderTextbox";
+         this.saveFolderTextbox.Size = new System.Drawing.Size(418, 24);
+         this.saveFolderTextbox.TabIndex = 2;
+         this.saveFolderTextbox.TextChanged += new System.EventHandler(this.saveFolderTextbox_TextChanged);
          // 
          // radioButton2
          // 
@@ -443,6 +445,7 @@
          this.radioButton2.TabStop = true;
          this.radioButton2.Text = "Folder";
          this.radioButton2.UseVisualStyleBackColor = true;
+         this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
          // 
          // radioButton1
          // 
@@ -457,6 +460,7 @@
          this.radioButton1.TabStop = true;
          this.radioButton1.Text = "Source Folder";
          this.radioButton1.UseVisualStyleBackColor = true;
+         this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
          // 
          // ConversionProgress
          // 
@@ -523,7 +527,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox saveFolderTextbox;
         private System.Windows.Forms.Button selectFolderToSave;
       private System.Windows.Forms.Label ConversionProgress;
    }

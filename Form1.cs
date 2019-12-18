@@ -23,6 +23,8 @@ namespace ImageConverterGUI
       public static Color jpgBgColor;
       public List<string> filesLoaded;
       public Stopwatch conversionTimer;
+      public static string ExportFolder;
+      public bool SourceOrSelected;
       public Form1() {
          InitializeComponent();
          backgroundWorker1.WorkerReportsProgress = true;
@@ -33,6 +35,7 @@ namespace ImageConverterGUI
          ConvertButton.MouseEnter += OnMouseEnterButton;
          ConvertButton.MouseLeave += OnMouseLeaveButton1;
          conversionTimer = new Stopwatch();
+         SourceOrSelected = true;
 
          radioButton1.Select();
          selectFolder.Image = Properties.Resources.AddFolderNormal;
@@ -166,7 +169,6 @@ namespace ImageConverterGUI
                      }
                   }
                }
-
                await AllocateMemoryAndSave(path, bitmap, jpg, Replace);
             } finally {
                handle.Free();
@@ -176,6 +178,9 @@ namespace ImageConverterGUI
       public async Task AllocateMemoryAndSave(string path, Bitmap bitmap, bool jpg, bool replace) {
          string oldPath = path;
          string outputFileName = "";
+         if(!SourceOrSelected) {
+            path = ExportFolder + "\\" + Path.GetFileName(path);
+         }
          if(!jpg)
             outputFileName = Path.ChangeExtension(path, ".png");
          else
@@ -183,16 +188,13 @@ namespace ImageConverterGUI
          if(!jpg) {
             try {
                bitmap.Save(outputFileName, System.Drawing.Imaging.ImageFormat.Png);
-
             } catch(Exception ex) {
                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
          } else {
             ImageCodecInfo codec = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == System.Drawing.Imaging.ImageFormat.Jpeg.Guid);
             var encParams = new EncoderParameters() {
-               Param = new[]{
-                        new EncoderParameter(Encoder.Quality, jpgQuality)
-                     }
+               Param = new[]{new EncoderParameter(Encoder.Quality, jpgQuality)}
             };
             bitmap.Save(outputFileName, codec, encParams);
          }
@@ -219,7 +221,7 @@ namespace ImageConverterGUI
             EnableInteractivity(this.selectFolder, false);
          }
          for(int i = 0; i < filesLoaded.Count; i++) {
-            await Task.Run(() => {ConvertFile(filesLoaded[i], checkBoxReplaceFiles.Checked, checkUnityMetaFilesRename.Checked, false); });
+            await Task.Run(() => { ConvertFile(filesLoaded[i], checkBoxReplaceFiles.Checked, checkUnityMetaFilesRename.Checked, false); });
             this.progressBarValue = (int)(((float)(i / filesLoaded.Count)) * 100f);
          }
          this.progressBarValue = 100;
@@ -234,9 +236,6 @@ namespace ImageConverterGUI
             EnableInteractivity(this.convertPng, true);
             EnableInteractivity(this.selectFile, true);
             EnableInteractivity(this.selectFolder, true);
-         }
-         if(MessageBox.Show("Conversion Complete") == DialogResult.OK) {
-            Application.Exit();
          }
       }
       public async void StartConversionJpeg() {
@@ -275,8 +274,6 @@ namespace ImageConverterGUI
             Application.Exit();
          }
       }
-
-
 
       //EVENTS
       private void listView1_DragEnter(object sender, DragEventArgs e) {
@@ -405,6 +402,33 @@ namespace ImageConverterGUI
             Form jpegOptions = new Images(this);
             jpegOptions.Show();
          }
+      }
+
+      private void selectFolderToSave_Click(object sender, EventArgs e) {
+         FolderBrowserDialog fbd = new FolderBrowserDialog();
+         fbd.RootFolder = Environment.SpecialFolder.Desktop;
+         fbd.Description = "Select folder to save";
+         fbd.ShowNewFolderButton = false;
+         if(fbd.ShowDialog() == DialogResult.OK) {
+            ExportFolder = fbd.SelectedPath;
+            saveFolderTextbox.Text = ExportFolder;
+         }
+      }
+
+      private void saveFolderTextbox_TextChanged(object sender, EventArgs e) {
+         ExportFolder = saveFolderTextbox.Text;
+      }
+
+      private void radioButton1_CheckedChanged(object sender, EventArgs e) {
+         SourceOrSelected = true;
+         saveFolderTextbox.Enabled = false;
+         selectFolderToSave.Enabled = false;
+      }
+
+      private void radioButton2_CheckedChanged(object sender, EventArgs e) {
+         SourceOrSelected = false;
+         saveFolderTextbox.Enabled = true;
+         selectFolderToSave.Enabled = true;
       }
    }
 }
