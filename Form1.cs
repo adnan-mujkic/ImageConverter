@@ -71,7 +71,7 @@ namespace ImageConverterGUI
       private void UpdateUIelemnts(object sender, EventArgs e) {
          if(progressBarValue <= 100 && this.progressBar1.Value != progressBarValue) {
             this.progressBar1.Value = progressBarValue;
-            ConversionProgress.Text = progressBarValue + "%\nElapsed:" + (int)conversionTimer.Elapsed.TotalSeconds + " seconds";
+            ConversionProgress.Text = progressBarValue + "%\nElapsed: " + (int)conversionTimer.Elapsed.TotalSeconds + " seconds";
          }
       }
       private void GetTgaFilesFromFolder() {
