@@ -14,6 +14,12 @@ namespace ImageConverterGUI
 {
    public partial class Form1: Form
    {
+      [DllImport("DLLs\\TGAreader.dll", CallingConvention = CallingConvention.Cdecl)]
+      public static extern bool TestTGA();
+
+      [DllImport("DLLs\\TGAreader.dll", CallingConvention = CallingConvention.Cdecl)]
+      public static extern int ImageWidth(string path);
+
       string filepath;
       string folderPath;
       bool jpgOrPng;
@@ -434,6 +440,18 @@ namespace ImageConverterGUI
 
       private void checkUnityMetaFilesRename_ToolTip_Popup(object sender, PopupEventArgs e) {
 
+      }
+
+      private void button1_Click_1(object sender, EventArgs e) {
+         try {
+            if(TestTGA()) {
+               MessageBox.Show("Tga DLL loaded and working");
+               MessageBox.Show("Width: " + ImageWidth("C:\\Users\\#1201\\Desktop\\circle.tga").ToString() + " pixels");
+               MessageBox.Show("Width: " + ImageWidth("C:\\Users\\#1201\\Desktop\\Settings_-_L1_Basew_icons.tga").ToString() + " pixels");
+            }
+         } catch(Exception ex) {
+            MessageBox.Show(ex.Message);
+         }
       }
    }
 }

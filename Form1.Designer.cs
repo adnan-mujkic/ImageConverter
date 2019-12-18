@@ -30,7 +30,6 @@
          this.ConvertButton = new System.Windows.Forms.Button();
          this.checkUnityMetaFilesRename = new System.Windows.Forms.CheckBox();
          this.checkBoxReplaceFiles = new System.Windows.Forms.CheckBox();
-         this.label4 = new System.Windows.Forms.Label();
          this.label5 = new System.Windows.Forms.Label();
          this.convertJpg = new System.Windows.Forms.Button();
          this.convertPng = new System.Windows.Forms.Button();
@@ -55,12 +54,15 @@
          this.radioButton1 = new System.Windows.Forms.RadioButton();
          this.ConversionProgress = new System.Windows.Forms.Label();
          this.checkUnityMetaFilesRename_ToolTip = new System.Windows.Forms.ToolTip(this.components);
+         this.button1 = new System.Windows.Forms.Button();
+         this.pictureBox1 = new System.Windows.Forms.PictureBox();
          this.optionsGroup.SuspendLayout();
          this.groupBox1.SuspendLayout();
          this.tabControl1.SuspendLayout();
          this.tabPage1.SuspendLayout();
          this.tabPage2.SuspendLayout();
          this.groupBox2.SuspendLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
          this.SuspendLayout();
          // 
          // ConvertButton
@@ -95,7 +97,7 @@
          this.checkUnityMetaFilesRename.TabIndex = 2;
          this.checkUnityMetaFilesRename.Text = "Rename Unity Meta Files?";
          this.checkUnityMetaFilesRename_ToolTip.SetToolTip(this.checkUnityMetaFilesRename, "If you\'re working with Unity texture files it\'s wise to check this option on so U" +
-        "nity won\'t generate new meta files");
+        "nity wont generate new meta files");
          this.checkUnityMetaFilesRename.UseVisualStyleBackColor = true;
          // 
          // checkBoxReplaceFiles
@@ -113,20 +115,6 @@
          this.checkBoxReplaceFiles.TabIndex = 3;
          this.checkBoxReplaceFiles.Text = "Replace";
          this.checkBoxReplaceFiles.UseVisualStyleBackColor = true;
-         // 
-         // label4
-         // 
-         this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-         this.label4.BackColor = System.Drawing.Color.Transparent;
-         this.label4.Font = new System.Drawing.Font("Roboto Thin", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
-         this.label4.Location = new System.Drawing.Point(10, 5);
-         this.label4.Name = "label4";
-         this.label4.Size = new System.Drawing.Size(583, 50);
-         this.label4.TabIndex = 12;
-         this.label4.Text = "TGA Image Converter";
-         this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
          // label5
          // 
@@ -487,16 +475,40 @@
          this.checkUnityMetaFilesRename_ToolTip.ReshowDelay = 100;
          this.checkUnityMetaFilesRename_ToolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.checkUnityMetaFilesRename_ToolTip_Popup);
          // 
+         // button1
+         // 
+         this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.button1.Location = new System.Drawing.Point(494, 29);
+         this.button1.Name = "button1";
+         this.button1.Size = new System.Drawing.Size(75, 23);
+         this.button1.TabIndex = 24;
+         this.button1.Text = "TEST TGA";
+         this.button1.UseVisualStyleBackColor = true;
+         this.button1.Click += new System.EventHandler(this.button1_Click_1);
+         // 
+         // pictureBox1
+         // 
+         this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+         this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+         this.pictureBox1.Image = global::ImageConverterGUI.Properties.Resources.image_converter;
+         this.pictureBox1.Location = new System.Drawing.Point(156, 0);
+         this.pictureBox1.Name = "pictureBox1";
+         this.pictureBox1.Size = new System.Drawing.Size(300, 76);
+         this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+         this.pictureBox1.TabIndex = 25;
+         this.pictureBox1.TabStop = false;
+         // 
          // Form1
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BackColor = System.Drawing.Color.White;
          this.ClientSize = new System.Drawing.Size(596, 493);
+         this.Controls.Add(this.pictureBox1);
+         this.Controls.Add(this.button1);
          this.Controls.Add(this.ConversionProgress);
          this.Controls.Add(this.tabControl1);
          this.Controls.Add(this.progressBar1);
-         this.Controls.Add(this.label4);
          this.Controls.Add(this.ConvertButton);
          this.Font = new System.Drawing.Font("Roboto Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -513,6 +525,7 @@
          this.tabPage2.ResumeLayout(false);
          this.groupBox2.ResumeLayout(false);
          this.groupBox2.PerformLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
          this.ResumeLayout(false);
 
       }
@@ -523,7 +536,6 @@
       private System.Windows.Forms.CheckBox checkBoxReplaceFiles;
       private System.Windows.Forms.Button selectFolder;
       private System.Windows.Forms.Button selectFile;
-      private System.Windows.Forms.Label label4;
       private System.Windows.Forms.Label label5;
       private System.Windows.Forms.Button convertJpg;
       private System.Windows.Forms.Button convertPng;
@@ -546,6 +558,8 @@
         private System.Windows.Forms.Button selectFolderToSave;
       private System.Windows.Forms.Label ConversionProgress;
         private System.Windows.Forms.ToolTip checkUnityMetaFilesRename_ToolTip;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

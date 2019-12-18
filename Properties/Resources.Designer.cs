@@ -133,6 +133,16 @@ namespace ImageConverterGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap image_converter {
+            get {
+                object obj = ResourceManager.GetObject("image-converter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap jpg {
             get {
                 object obj = ResourceManager.GetObject("jpg", resourceCulture);
