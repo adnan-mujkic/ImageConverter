@@ -36,6 +36,7 @@ namespace ImageConverterGUI
          ConvertButton.MouseLeave += OnMouseLeaveButton1;
          conversionTimer = new Stopwatch();
          SourceOrSelected = true;
+         
 
          radioButton1.Select();
          selectFolder.Image = Properties.Resources.AddFolderNormal;
@@ -429,6 +430,10 @@ namespace ImageConverterGUI
          SourceOrSelected = false;
          saveFolderTextbox.Enabled = true;
          selectFolderToSave.Enabled = true;
+      }
+
+      private void checkUnityMetaFilesRename_ToolTip_Popup(object sender, PopupEventArgs e) {
+
       }
    }
 }

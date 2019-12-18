@@ -25,6 +25,7 @@
       /// the contents of this method with the code editor.
       /// </summary>
       private void InitializeComponent() {
+         this.components = new System.ComponentModel.Container();
          System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
          this.ConvertButton = new System.Windows.Forms.Button();
          this.checkUnityMetaFilesRename = new System.Windows.Forms.CheckBox();
@@ -53,6 +54,7 @@
          this.radioButton2 = new System.Windows.Forms.RadioButton();
          this.radioButton1 = new System.Windows.Forms.RadioButton();
          this.ConversionProgress = new System.Windows.Forms.Label();
+         this.checkUnityMetaFilesRename_ToolTip = new System.Windows.Forms.ToolTip(this.components);
          this.optionsGroup.SuspendLayout();
          this.groupBox1.SuspendLayout();
          this.tabControl1.SuspendLayout();
@@ -92,6 +94,8 @@
          this.checkUnityMetaFilesRename.Size = new System.Drawing.Size(244, 31);
          this.checkUnityMetaFilesRename.TabIndex = 2;
          this.checkUnityMetaFilesRename.Text = "Rename Unity Meta Files?";
+         this.checkUnityMetaFilesRename_ToolTip.SetToolTip(this.checkUnityMetaFilesRename, "If you\'re working with Unity texture files it\'s wise to check this option on so U" +
+        "nity won\'t generate new meta files");
          this.checkUnityMetaFilesRename.UseVisualStyleBackColor = true;
          // 
          // checkBoxReplaceFiles
@@ -103,17 +107,18 @@
          this.checkBoxReplaceFiles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
          this.checkBoxReplaceFiles.Font = new System.Drawing.Font("Roboto Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.checkBoxReplaceFiles.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
-         this.checkBoxReplaceFiles.Location = new System.Drawing.Point(6, 60);
+         this.checkBoxReplaceFiles.Location = new System.Drawing.Point(135, 23);
          this.checkBoxReplaceFiles.Name = "checkBoxReplaceFiles";
          this.checkBoxReplaceFiles.Size = new System.Drawing.Size(244, 31);
          this.checkBoxReplaceFiles.TabIndex = 3;
-         this.checkBoxReplaceFiles.Text = "Replace old textures ?";
+         this.checkBoxReplaceFiles.Text = "Replace";
          this.checkBoxReplaceFiles.UseVisualStyleBackColor = true;
          // 
          // label4
          // 
          this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+         this.label4.BackColor = System.Drawing.Color.Transparent;
          this.label4.Font = new System.Drawing.Font("Roboto Thin", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
          this.label4.Location = new System.Drawing.Point(10, 5);
@@ -183,7 +188,6 @@
          this.progressBar1.Name = "progressBar1";
          this.progressBar1.Size = new System.Drawing.Size(318, 23);
          this.progressBar1.TabIndex = 16;
-         this.progressBar1.UseWaitCursor = true;
          // 
          // listView1
          // 
@@ -192,6 +196,7 @@
          this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+         this.listView1.BackColor = System.Drawing.Color.White;
          this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
@@ -223,7 +228,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
          this.optionsGroup.BackColor = System.Drawing.Color.Transparent;
          this.optionsGroup.Controls.Add(this.checkUnityMetaFilesRename);
-         this.optionsGroup.Controls.Add(this.checkBoxReplaceFiles);
          this.optionsGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
          this.optionsGroup.Font = new System.Drawing.Font("Roboto Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.optionsGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
@@ -288,6 +292,7 @@
          // 
          // tabPage1
          // 
+         this.tabPage1.BackColor = System.Drawing.Color.White;
          this.tabPage1.Controls.Add(this.listView1);
          this.tabPage1.Controls.Add(this.selectFile);
          this.tabPage1.Controls.Add(this.deleteItem);
@@ -299,7 +304,6 @@
          this.tabPage1.Size = new System.Drawing.Size(559, 366);
          this.tabPage1.TabIndex = 0;
          this.tabPage1.Text = "Input";
-         this.tabPage1.UseVisualStyleBackColor = true;
          // 
          // selectFile
          // 
@@ -372,6 +376,7 @@
          // 
          // tabPage2
          // 
+         this.tabPage2.BackColor = System.Drawing.Color.White;
          this.tabPage2.Controls.Add(this.groupBox2);
          this.tabPage2.Controls.Add(this.groupBox1);
          this.tabPage2.Controls.Add(this.optionsGroup);
@@ -382,13 +387,13 @@
          this.tabPage2.Size = new System.Drawing.Size(559, 366);
          this.tabPage2.TabIndex = 1;
          this.tabPage2.Text = "Output";
-         this.tabPage2.UseVisualStyleBackColor = true;
          // 
          // groupBox2
          // 
          this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.groupBox2.Controls.Add(this.selectFolderToSave);
+         this.groupBox2.Controls.Add(this.checkBoxReplaceFiles);
          this.groupBox2.Controls.Add(this.saveFolderTextbox);
          this.groupBox2.Controls.Add(this.radioButton2);
          this.groupBox2.Controls.Add(this.radioButton1);
@@ -424,7 +429,7 @@
          // 
          this.saveFolderTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.saveFolderTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.saveFolderTextbox.BackColor = System.Drawing.Color.White;
          this.saveFolderTextbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
          this.saveFolderTextbox.Location = new System.Drawing.Point(81, 62);
          this.saveFolderTextbox.Name = "saveFolderTextbox";
@@ -465,6 +470,7 @@
          // ConversionProgress
          // 
          this.ConversionProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+         this.ConversionProgress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
          this.ConversionProgress.Location = new System.Drawing.Point(341, 458);
          this.ConversionProgress.Name = "ConversionProgress";
          this.ConversionProgress.Size = new System.Drawing.Size(147, 23);
@@ -472,11 +478,20 @@
          this.ConversionProgress.Text = "Click to start ->";
          this.ConversionProgress.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          // 
+         // checkUnityMetaFilesRename_ToolTip
+         // 
+         this.checkUnityMetaFilesRename_ToolTip.AutoPopDelay = 10000;
+         this.checkUnityMetaFilesRename_ToolTip.BackColor = System.Drawing.Color.White;
+         this.checkUnityMetaFilesRename_ToolTip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
+         this.checkUnityMetaFilesRename_ToolTip.InitialDelay = 500;
+         this.checkUnityMetaFilesRename_ToolTip.ReshowDelay = 100;
+         this.checkUnityMetaFilesRename_ToolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.checkUnityMetaFilesRename_ToolTip_Popup);
+         // 
          // Form1
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+         this.BackColor = System.Drawing.Color.White;
          this.ClientSize = new System.Drawing.Size(596, 493);
          this.Controls.Add(this.ConversionProgress);
          this.Controls.Add(this.tabControl1);
@@ -530,6 +545,7 @@
         private System.Windows.Forms.TextBox saveFolderTextbox;
         private System.Windows.Forms.Button selectFolderToSave;
       private System.Windows.Forms.Label ConversionProgress;
-   }
+        private System.Windows.Forms.ToolTip checkUnityMetaFilesRename_ToolTip;
+    }
 }
 

@@ -48,7 +48,7 @@
          // label1
          // 
          this.label1.AutoSize = true;
-         this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+         this.label1.BackColor = System.Drawing.Color.Transparent;
          this.label1.Font = new System.Drawing.Font("Roboto Light", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
          this.label1.Location = new System.Drawing.Point(22, 9);
@@ -75,7 +75,9 @@
          // 
          // numericUpDown1
          // 
+         this.numericUpDown1.BackColor = System.Drawing.Color.White;
          this.numericUpDown1.Font = new System.Drawing.Font("Roboto Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.numericUpDown1.ForeColor = System.Drawing.Color.DimGray;
          this.numericUpDown1.Location = new System.Drawing.Point(282, 44);
          this.numericUpDown1.Name = "numericUpDown1";
          this.numericUpDown1.Size = new System.Drawing.Size(48, 23);
@@ -91,7 +93,7 @@
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+         this.BackColor = System.Drawing.Color.White;
          this.ClientSize = new System.Drawing.Size(342, 139);
          this.Controls.Add(this.numericUpDown1);
          this.Controls.Add(this.ApplyChangesButton);
