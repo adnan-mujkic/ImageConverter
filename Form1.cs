@@ -17,8 +17,7 @@ namespace ImageConverterGUI
       [DllImport("DLLs\\TGAreader.dll", CallingConvention = CallingConvention.Cdecl)]
       public static extern bool TestTGA();
 
-      [DllImport("DLLs\\TGAreader.dll", CallingConvention = CallingConvention.Cdecl)]
-      public static extern int ImageWidth(string path);
+      
 
       string filepath;
       string folderPath;
@@ -183,6 +182,8 @@ namespace ImageConverterGUI
          }
       }
       public async Task AllocateMemoryAndSave(string path, Bitmap bitmap, bool jpg, bool replace) {
+         Form TGAview = new ImageFormats.TGAviewer(bitmap);
+         TGAview.Show();
          string oldPath = path;
          string outputFileName = "";
          if(!SourceOrSelected) {
@@ -408,6 +409,8 @@ namespace ImageConverterGUI
          if(jpgOrPng) {
             Form jpegOptions = new Images(this);
             jpegOptions.Show();
+         } else {
+            MessageBox.Show("Settings for png currently not supported");
          }
       }
 
@@ -438,16 +441,22 @@ namespace ImageConverterGUI
          selectFolderToSave.Enabled = true;
       }
 
-      private void checkUnityMetaFilesRename_ToolTip_Popup(object sender, PopupEventArgs e) {
-
-      }
-
       private void button1_Click_1(object sender, EventArgs e) {
          try {
             if(TestTGA()) {
-               MessageBox.Show("Tga DLL loaded and working");
-               MessageBox.Show("Width: " + ImageWidth("C:\\Users\\#1201\\Desktop\\circle.tga").ToString() + " pixels");
-               MessageBox.Show("Width: " + ImageWidth("C:\\Users\\#1201\\Desktop\\Settings_-_L1_Basew_icons.tga").ToString() + " pixels");
+               MessageBox.Show("Own Tga DLL loaded and working");
+               if(filesLoaded.Count > 0) {
+                  var allFilesWidth = String.Empty;
+                  var tgaFile = new ImageFormats.TGA(filesLoaded[0]);
+                  int stride = 4000;
+                  var bitmap = new Bitmap(tgaFile.ImageWidth, tgaFile.ImageHeigth,stride ,PixelFormat.Format32bppArgb,tgaFile.dataPointer);
+
+                  bitmap.Save("C:\\Users\\#1201\\Desktop\\circle.png", System.Drawing.Imaging.ImageFormat.Png);
+                  //for(int i = 0; i < filesLoaded.Count; i++) {
+                  //   allFilesWidth += "Width: " + (ImageWidth(filesLoaded[i]) + " pixels\n");
+                  //}
+                  //MessageBox.Show(allFilesWidth);
+               }
             }
          } catch(Exception ex) {
             MessageBox.Show(ex.Message);

@@ -473,7 +473,6 @@
          this.checkUnityMetaFilesRename_ToolTip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(21)))));
          this.checkUnityMetaFilesRename_ToolTip.InitialDelay = 500;
          this.checkUnityMetaFilesRename_ToolTip.ReshowDelay = 100;
-         this.checkUnityMetaFilesRename_ToolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.checkUnityMetaFilesRename_ToolTip_Popup);
          // 
          // button1
          // 
